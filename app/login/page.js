@@ -23,6 +23,8 @@ export default function Login() {
     try{
       const response= await Axios.post("http://localhost:8080/api/login",{email,password});
       console.log('Response data:', response.data);
+
+      alert(response.data.message);
       
       
       

@@ -3,9 +3,16 @@ import React, { useState,useEffect } from "react";
 import Image from 'next/image';
 import Note from "/Users/samarthyaalok/Desktop/sticky_notes/note.js";
 import Axios from "axios"
+import { useRouter } from 'next/navigation';
 
 export default function Sticky() {
+  const router=useRouter();
+  function handleClick(){
+    localStorage.setItem("unique_email","");
+    router.push('http://localhost:3000/login');
+  }
   const [notes, setNotes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   function onClickButton() {
     
@@ -14,13 +21,20 @@ export default function Sticky() {
   async function postData(){
     let email=localStorage.getItem("unique_email")
     try{
+      if(!email){
+        return(
+          <div>Not Authorized Go to Login Page for Authentication</div>
+        )
+      }
       let response=await Axios.post("http://localhost:8080/api/create",{unique_email:email});
-      setNotes(prevNotes => [...prevNotes, ...response.data]);
+      setNotes(response.data);
+      setLoading(false); 
       console.log(response.data)
       console.log(notes);
     }
     catch(err){
       console.log(err)
+      setLoading(false);
     }
 
   }
@@ -28,6 +42,9 @@ export default function Sticky() {
     console.log(notes)
     postData();
   }, []); 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
 
@@ -40,6 +57,12 @@ export default function Sticky() {
               <li><a href="#" className="text-white">New Note</a></li>
               <li><a href="#" className="text-white">Contact</a></li>
             </ul>
+            <div>
+            <button onClick={handleClick}>
+              LogOut
+            </button>
+            </div>
+           
           </div>
         </nav>
       </div>
@@ -53,7 +76,7 @@ export default function Sticky() {
       <div className="ml-24 flex flex-wrap">
       {notes.map((note, index) => (
       <div key={index} className="m-2">
-        <Note title={note.title} content={note.content} />
+        <Note title={note.title} content={note.content} number={index}/>
       </div>
   ))}
 </div>

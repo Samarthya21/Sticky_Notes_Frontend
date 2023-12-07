@@ -11,12 +11,12 @@ export default function Signup() {
     let email=document.querySelector("input[type='email']").value
    
     let password=document.querySelector("input[type='password']").value;
-    
+    //Everything comes inside res.data
     try {
       const response = await Axios.post('http://localhost:8080/api/home', {email,password
       });
   
-      
+      alert(JSON.stringify(response.data.message));
       console.log('Response data:', response.data);
     } catch (error) {
       
