@@ -2,11 +2,11 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import userIcon from '/Users/samarthyaalok/Desktop/sticky_notes/icons8-user-24.png';
-import eyeIcon from '/Users/samarthyaalok/Desktop/sticky_notes/icons8-show-password-50.png';
+import userIcon from 'icons8-user-24.png';
+import eyeIcon from 'icons8-show-password-50.png';
 import Axios from "axios"
 import { useRouter } from 'next/navigation';
-
+const BASE_URL= process.env.BASE_URL
 
 
 export default function Login() {
@@ -21,7 +21,7 @@ export default function Login() {
     localStorage.setItem('unique_email',email);
     
     try{
-      const response= await Axios.post("http://localhost:8080/api/login",{email,password});
+      const response= await Axios.post("https://stickynotesbackend-oy9o.onrender.com/api/login",{email,password});
       console.log('Response data:', response.data);
 
       alert(response.data.message);
@@ -30,7 +30,7 @@ export default function Login() {
       
       if(response.data.user){
       
-        router.push('http://localhost:3000/sticky');
+        router.push(`${BASE_URL}/sticky`);
       }
       else if(!response.data.user){
         

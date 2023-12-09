@@ -2,6 +2,7 @@ import Image from "next/image"
 import  Axios  from 'axios';
 import React, { useState } from 'react';
 
+
 export default function Note({title,content,number}) {
   const [title_of, setTitle] = useState(title || '');
   const [content_of, setContent] = useState(content || '');
@@ -10,7 +11,7 @@ export default function Note({title,content,number}) {
   async function postData(e) {
     e.preventDefault();
     try {
-      let response = await Axios.post("http://localhost:8080/api/read", {
+      let response = await Axios.post("https://stickynotesbackend-oy9o.onrender.com/api/read", {
       title: title_of,
       content: content_of,
       unique_email:unique_email,
@@ -28,7 +29,7 @@ export default function Note({title,content,number}) {
   async function deleteData(e){
     e.preventDefault();
     try{
-      let response=await Axios.post("http://localhost:8080/api/del",{
+      let response=await Axios.post("https://stickynotesbackend-oy9o.onrender.com/api/del",{
         unique_email:unique_email,
         key_read:number
       })

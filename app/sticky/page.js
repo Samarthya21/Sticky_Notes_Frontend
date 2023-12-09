@@ -1,15 +1,16 @@
 "use client"
 import React, { useState,useEffect } from "react";
 import Image from 'next/image';
-import Note from "/Users/samarthyaalok/Desktop/sticky_notes/note.js";
+import Note from "note.js";
 import Axios from "axios"
 import { useRouter } from 'next/navigation';
+const BASE_URL=process.env.BASE_URL
 
 export default function Sticky() {
   const router=useRouter();
   function handleClick(){
     localStorage.setItem("unique_email","");
-    router.push('http://localhost:3000/login');
+    router.push(`${BASE_URL}/login`);
   }
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,7 +27,7 @@ export default function Sticky() {
           <div>Not Authorized Go to Login Page for Authentication</div>
         )
       }
-      let response=await Axios.post("http://localhost:8080/api/create",{unique_email:email});
+      let response=await Axios.post("https://stickynotesbackend-oy9o.onrender.com/api/create",{unique_email:email});
       setNotes(response.data);
       setLoading(false); 
       console.log(response.data)

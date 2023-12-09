@@ -1,8 +1,9 @@
 "use client"
 import Image from 'next/image';
-import userIcon from '/Users/samarthyaalok/Desktop/sticky_notes/icons8-user-24.png';
-import eyeIcon from '/Users/samarthyaalok/Desktop/sticky_notes/icons8-show-password-50.png';
+import userIcon from 'icons8-user-24.png';
+import eyeIcon from 'icons8-show-password-50.png';
 import Axios from "axios";
+
 
 export default function Signup() {
   async function postData(e) {
@@ -13,7 +14,7 @@ export default function Signup() {
     let password=document.querySelector("input[type='password']").value;
     //Everything comes inside res.data
     try {
-      const response = await Axios.post('http://localhost:8080/api/home', {email,password
+      const response = await Axios.post('https://stickynotesbackend-oy9o.onrender.com/api/home', {email,password
       });
   
       alert(JSON.stringify(response.data.message));
