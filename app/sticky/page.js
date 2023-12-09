@@ -10,7 +10,7 @@ export default function Sticky() {
   const router=useRouter();
   function handleClick(){
     localStorage.setItem("unique_email","");
-    router.push(`${BASE_URL}/login`);
+    router.push("/login");
   }
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
