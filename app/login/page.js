@@ -30,7 +30,7 @@ export default function Login() {
       
       if(response.data.user){
       
-        router.push("/sticky");
+        router.push(`${BASE_URL}/sticky`);
       }
       else if(!response.data.user){
         
